@@ -1,7 +1,0 @@
-- Hacer un video mostrando un poco como funciona todo
-    * Mostrar como probamos la resolución del 4
-    * Jugar un poco con los valores del 4
-    * Mostrar como adaptamos el script para probar la resolución del 5
-    * Explicar todo DE A PARTES, ir lento, que se entienda.
-
-- Hacer un README explicando todo
