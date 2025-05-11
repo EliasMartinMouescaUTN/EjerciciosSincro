@@ -6,7 +6,7 @@
 #include "../semaphores_wrap.h"
 
 // ---- Declarations ----
-typedef int tarea_t;                // Una tarea es un int, por qué no? 0 es la tarea NULL, no válida
+typedef int tarea_t;                // Una tarea es un int, por que no? 0 es la tarea NULL, no valida
 void poner_tarea(tarea_t*);
 tarea_t sacar_tarea(tarea_t*);
 void hacer(tarea_t);
@@ -27,9 +27,9 @@ const int CAPACIDAD_LISTA = 5;
 
 void* productor(void* _) {
     while (1) {
-        puts(COLOR_PRODUCTOR "Productor: Esperando a que haya espacio...");
+        puts(COLOR_PRODUCTOR "Productor: Esperando a que haya espacio..." COLOR_RESET);
         wait(capacidad_en_lista);       // Esperamos a que haya espacio en la lista
-        puts(COLOR_PRODUCTOR "Productor: Hay espacio en la lista!");
+        puts(COLOR_PRODUCTOR "Productor: Hay espacio en la lista!" COLOR_RESET);
         wait(mutex_lista);              // Esperamos a que la lista este disponible para usar
         poner_tarea(lista_tareas);
         signal(mutex_lista);            // Liberamos el mutex
@@ -43,9 +43,9 @@ void* productor(void* _) {
 
 void* consumidor(void* _) {
     while (1) {
-        puts(COLOR_CONSUMIDOR "Consumidor: Esperando tareas...");
+        puts(COLOR_CONSUMIDOR "Consumidor: Esperando tareas..." COLOR_RESET);
         wait(hay_tareas_pendientes);
-        puts(COLOR_CONSUMIDOR "Consumidor: Hay tareas pendientes!");
+        puts(COLOR_CONSUMIDOR "Consumidor: Hay tareas pendientes!" COLOR_RESET);
 
         wait(mutex_lista);
         tarea_t tarea = sacar_tarea(lista_tareas);
@@ -66,30 +66,30 @@ void* consumidor(void* _) {
 
 
 void poner_tarea(tarea_t* lista) {
-    puts(COLOR_PRODUCTOR "Productor: Poniendo tarea...");
+    puts(COLOR_PRODUCTOR "Productor: Poniendo tarea..." COLOR_RESET);
     for (int i = 0; i < CAPACIDAD_LISTA; i++) {
         if (lista[i] == 0){
             lista[i] = 1;
-            printf(COLOR_PRODUCTOR "Productor: Hay lugar en %d\n", i);
+            printf(COLOR_PRODUCTOR "Productor: Hay lugar en %d\n" COLOR_RESET, i);
             return;
         }
     }
 
-    puts(COLOR_RED "\nProductor: Quise poner una tarea y no había espacio :(\n");
+    puts(COLOR_RED "\nProductor: Quise poner una tarea y no habia espacio :(\n" COLOR_RESET);
     exit(1);
 }
 
 tarea_t sacar_tarea(tarea_t* lista) {
-    puts(COLOR_CONSUMIDOR "Consumidor: Sacando tarea...");
+    puts(COLOR_CONSUMIDOR "Consumidor: Sacando tarea..." COLOR_RESET);
     for (int i = 0; i < CAPACIDAD_LISTA; i++) {
         if (lista[i] != 0){
             lista[i] = 0;
-            printf(COLOR_CONSUMIDOR "Consumidor: Saqué la tarea %d\n", i);
+            printf(COLOR_CONSUMIDOR "Consumidor: Saque la tarea %d\n" COLOR_RESET, i);
             return 1;
         }
     }
 
-    puts(COLOR_RED "\nConsumidor: Quise sacar una tarea y la lista estaba vacía :(\n");
+    puts(COLOR_RED "\nConsumidor: Quise sacar una tarea y la lista estaba vacia :(\n" COLOR_RESET);
     exit(1);
 }
 
@@ -97,7 +97,7 @@ void hacer(tarea_t _) {}
 
 int main() {
 
-    // Inicializamos los semáforos
+    // Inicializamos los semaforos
     init(hay_tareas_pendientes, 0);             // Al principio no hay tareas por realizar, arranca en 0
     init(capacidad_en_lista, CAPACIDAD_LISTA);  // Al princpio, la lista tiene CAPACIDAD_LISTA lugares
     init(mutex_lista, 1);                       // Los mutex siempre se inicializan en 1
