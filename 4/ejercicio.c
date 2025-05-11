@@ -12,7 +12,7 @@ void setup() {
     // init(sem, 1);
 }
 
-void* procesoA(void*) {
+void* procesoA(void* _) {
     while(1){
 
         printf("A\n");
@@ -21,7 +21,7 @@ void* procesoA(void*) {
     }
 }
 
-void* procesoB(void*) {
+void* procesoB(void* _) {
     while(1){
 
         printf("B\n");

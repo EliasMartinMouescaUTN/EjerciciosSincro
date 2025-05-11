@@ -18,7 +18,7 @@ void setup() {
     init(semBoC, 1);
 }
 
-void* procesoA(void*) {
+void* procesoA(void* _) {
     while(1){
         wait(semA);
 
@@ -29,7 +29,7 @@ void* procesoA(void*) {
 
 }
 
-void* procesoB(void*) {
+void* procesoB(void* _) {
     while(1){
         wait(semB);
         wait(semBoC);
@@ -41,7 +41,7 @@ void* procesoB(void*) {
     }
 }
 
-void* procesoC(void*) {
+void* procesoC(void* _) {
     while(1){
         wait(semC);
         wait(semBoC);

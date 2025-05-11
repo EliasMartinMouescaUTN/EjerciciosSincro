@@ -7,9 +7,9 @@
 
 // ---- Declarations ----
 typedef int tarea_t;                // Una tarea es un int, por qué no? 0 es la tarea NULL, no válida
-void poner_tarea(tarea_t* lista);
-tarea_t sacar_tarea(tarea_t* lista);
-void hacer(tarea_t tarea);
+void poner_tarea(tarea_t*);
+tarea_t sacar_tarea(tarea_t*);
+void hacer(tarea_t);
 
 
 // ---- Globales ----
@@ -20,12 +20,12 @@ sem_t mutex_lista;
 
 
 // ---- Constantes ----
-const int DELAY_PRODUCTOR = 0;
-const int DELAY_CONSUMIDOR = 0;
+const int DELAY_PRODUCTOR = 1000;
+const int DELAY_CONSUMIDOR = 1000;
 const int CAPACIDAD_LISTA = 5;
 
 
-void* productor(void*) {
+void* productor(void* _) {
     while (1) {
         puts(COLOR_PRODUCTOR "Productor: Esperando a que haya espacio...");
         wait(capacidad_en_lista);       // Esperamos a que haya espacio en la lista
@@ -41,7 +41,7 @@ void* productor(void*) {
     return NULL;
 }
 
-void* consumidor(void*) {
+void* consumidor(void* _) {
     while (1) {
         puts(COLOR_CONSUMIDOR "Consumidor: Esperando tareas...");
         wait(hay_tareas_pendientes);
@@ -93,7 +93,7 @@ tarea_t sacar_tarea(tarea_t* lista) {
     exit(1);
 }
 
-void hacer(tarea_t) {}
+void hacer(tarea_t _) {}
 
 int main() {
 
