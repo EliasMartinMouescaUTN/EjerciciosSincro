@@ -3,17 +3,17 @@ Código con la resolución de algunos ejercicios de [esta guía](https://docs.go
 
 ## Ejercicios tipo BACA
 En cada una de las carpetas [4](4/), [5](5/), [5_](5_/) y [6](6/) hay un archivo (_ejercicio.c_) con la template sin sincronizar y otro archivo (_solucion.c_) con el mismo código pero con los semáforos puestos.
-![Ejemplo ejercicio 4](img/ej4.png)
+![Showcase ejercicio 4](img/showcase4.png)
 
 ## Ejemplo productor-consumidor
 Además de las carpetas 4-6, está la carpeta de [productor consumidor](productor_consumidor). Tiene un ejemplo más básico y típico de productor-consumidor; así como está, funciona, ya está sincronizado, todo. Está hecho para ser interactivo, la idea es tocar el código y ver que pasa. Hay algunas constantes al principio de [main.c](productor_consumidor/main.c) que también está bueno revisar para hacer que el problema se manifieste más rápido o tarde más en aparecer.
 
 #### Ejemplo 1
-Si comentamos el _wait_ de tareas pendientes, vemos que el consumidor trata de sacar tareas hasta que la lista está vacía y rompe.
+Si comentamos el _wait_ de tareas pendientes, vemos que el consumidor trata de sacar tareas hasta que la lista está vacía y rompe. En este ejemplo, el productor solo llego a poner una tarea.
 ![Imagen ejemplo 1](img/ejemplo1.png)
 
 #### Ejemplo 2
-Si comentamos el _signal_ de tareas pendientes, el productor ejecuta hasta que llena la lista y el consumidor nunca llega a ejecutar porque justamente el productor no le avisa que hay tareas pendientes.
+Si comentamos el _signal_ de tareas pendientes, el productor ejecuta hasta que llena la lista y el consumidor no saca ninguna tarea porque el productor nunca le avisó que había tareas pendientes. En este caso, el productor llega a poner 5 tareas y luego para porque la lista esta llena.
 ![Imagen ejemplo 2](img/ejemplo2.png)
 
 #### Comparación con go
