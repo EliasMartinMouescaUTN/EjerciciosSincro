@@ -6,6 +6,7 @@
 // -----------------------------------------
 
 // - Globals -
+// Ambos semA y semB son semáforos binarios
 sem_t semA;
 sem_t semB;
 
