@@ -107,7 +107,7 @@ int main() {
     
     // Inicializamos lista
     lista_tareas = malloc(CAPACIDAD_LISTA * sizeof(tarea_t));
-    memset(lista_tareas, 0, CAPACIDAD_LISTA);   // 0 representa un espacio vacío, sin tarea.
+    memset(lista_tareas, 0, CAPACIDAD_LISTA * sizeof(tarea_t));   // 0 representa un espacio vacío, sin tarea.
     
     // Creamos los threads
     create(thread_productor, productor);
