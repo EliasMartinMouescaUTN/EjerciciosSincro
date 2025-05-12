@@ -16,14 +16,17 @@
 //      init(semA, 1);
 #define init(SEM,SEM_VALUE) sem_init(&SEM, 0, SEM_VALUE);
 
+// destroy(sem): Libera los recursos asociados al semáforo "sem". Ej: destroy(semA);
+#define destroy(SEM) sem_destroy(&SEM);
+
 // peek(sem): Imprime por stdout el nombre y valor del semaforo. Ej: peek(sem);
 #define peek(SEM) {int SEM_VALUE; sem_getvalue(&SEM, &SEM_VALUE); printf(#SEM": %d\n", SEM_VALUE);}
 
 // == Threads ==
-// create(thread, worker): Crea un nuevo hilo que ejecuta "worker".
+// create(thread, worker): Crea un nuevo hilo que ejecuta "worker". Ej: create(threadA, miFuncion);
 #define create(thread, worker) pthread_t thread; pthread_create(&thread, NULL, worker, NULL); 
 
-// join(thread): Hace un join al thread.
+// join(thread): Hace un join al thread. Ej: join(threadA);
 #define join(thread) pthread_join(thread, NULL);
 
 

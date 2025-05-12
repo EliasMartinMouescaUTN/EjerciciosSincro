@@ -6,7 +6,7 @@
 #include "../semaphores_wrap.h"
 
 // ---- Declarations ----
-typedef int tarea_t;                // Una tarea es un int, por que no? 0 es la tarea NULL, no valida
+typedef int tarea_t;                // Modelamos una tarea como int
 void poner_tarea(tarea_t*);
 tarea_t sacar_tarea(tarea_t*);
 void hacer(tarea_t);
@@ -30,10 +30,11 @@ void* productor(void* _) {
         puts(COLOR_PRODUCTOR "Productor: Esperando a que haya espacio..." COLOR_RESET);
         wait(capacidad_en_lista);       // Esperamos a que haya espacio en la lista
         puts(COLOR_PRODUCTOR "Productor: Hay espacio en la lista!" COLOR_RESET);
-        wait(mutex_lista);              // Esperamos a que la lista este disponible para usar
+
+        wait(mutex_lista);              // Variable compartida => sanguche mutex!
         poner_tarea(lista_tareas);
-        signal(mutex_lista);            // Liberamos el mutex
-                                        //
+        signal(mutex_lista);
+
         signal(hay_tareas_pendientes);  // Avisamos que hay tareas en la lista
         
         sleep(DELAY_PRODUCTOR);
@@ -44,14 +45,14 @@ void* productor(void* _) {
 void* consumidor(void* _) {
     while (1) {
         puts(COLOR_CONSUMIDOR "Consumidor: Esperando tareas..." COLOR_RESET);
-        wait(hay_tareas_pendientes);
+        wait(hay_tareas_pendientes);    // Esperamos a que haya tareas pendientes
         puts(COLOR_CONSUMIDOR "Consumidor: Hay tareas pendientes!" COLOR_RESET);
 
         wait(mutex_lista);
-        tarea_t tarea = sacar_tarea(lista_tareas);
+        tarea_t tarea = sacar_tarea(lista_tareas);      // Variable compartida => mutex
         signal(mutex_lista);
 
-        signal(capacidad_en_lista);
+        signal(capacidad_en_lista);     // Avisamos que hay un nuevo espacio en la lista
 
         hacer(tarea);
 
@@ -106,7 +107,7 @@ int main() {
     
     // Inicializamos lista
     lista_tareas = malloc(CAPACIDAD_LISTA * sizeof(tarea_t));
-    memset(lista_tareas, 0, CAPACIDAD_LISTA);   // 0 era la tarea NULL, o sea, vaciamos la lista
+    memset(lista_tareas, 0, CAPACIDAD_LISTA);   // 0 representa un espacio vacío, sin tarea.
     
     // Creamos los threads
     create(thread_productor, productor);
@@ -114,6 +115,14 @@ int main() {
 
     join(thread_productor);
     join(thread_consumidor);
+
+
+
+    // ---- Clean up ----
+    free(lista_tareas);
+    destroy(hay_tareas_pendientes);
+    destroy(capacidad_en_lista);
+    destroy(mutex_lista);
 
     return 0;
 

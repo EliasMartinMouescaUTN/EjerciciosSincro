@@ -2,7 +2,7 @@
 Repo con la resolución de algunos ejercicios de [esta guía](https://docs.google.com/document/d/1FpUSnTKrf_Da-aqMtZWpaEhZeH7ljRsABjX-q5M8QsM) de sincro en código. Con suerte, esto ayuda a bajar un poco a tierra los temas, los tipos de semáforos y eso.
 
 ## Ejercicios tipo BACA
-En cada una de las carpetas [4](4/), [5](5/), [5_](5_/) y [6](6/) hay un archivo (_ejercicio.c_) con la template sin sincronizar y otro archivo (_solucion.c_) con el mismo código pero con los semáforos puestos. Los programas están hechos como para que sea trivial adaptarlos a nuevos ejercicios; la idea es que sea una herramienta más para jugar y consolidar conocimientos.
+En cada una de las carpetas [4](4/), [5](5/), [5_](5_/) y [6](6/) hay un archivo (_ejercicio.c_) con la template sin sincronizar y otro archivo (_solucion.c_) con el mismo código pero con los semáforos puestos. Los programas están hechos como para que sea trivial adaptarlos a nuevos ejercicios; la idea es que sea una herramienta más para jugar y agarrarle la mano a los semáforos.
 ![Showcase ejercicio 4](img/showcase4.png)
 
 ## Ejemplo productor-consumidor
